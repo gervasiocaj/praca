@@ -1,0 +1,68 @@
+@import 'common';
+@import 'components';
+@import 'cta';
+@import 'typography';
+
+@import 'spinner';
+
+#logo {
+  width: 50%;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#map {
+  height: 270px;
+}
+
+.section h3 {
+  color: black;
+  font-size: 24pt;
+  text-align: center;
+}
+
+#programacao {
+  padding-left: 7%;
+  padding-right: 7%;
+  h2 {
+    color: black;
+    font-size: 16pt;
+  }
+}
+
+#sobre .col-md-6 {
+  text-align: justify;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@import 'buttons';
+@import 'nav';
+@import 'header';
+@import "header-classic";
+@import 'header_inner';
+@import 'flexslider';
+//@import 'team';
+//@import 'expertise';
+//@import 'video';
+//@import 'portfolio';
+//@import 'testimonial';
+//@import 'about';
+//@import 'services';
+//@import 'funfacts';
+//@import 'contact';
+//@import 'clients';
+//@import 'blog';
+//@import 'pricing';
+//@import 'subscribe';
+//@import 'why-choose-us';
+//@import 'our-process';
+//@import "gallery";
+//@import "faq";
+@import 'footer';
+@import "footer-widgets";
+@import "404";

@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "ie_fix.css",
+	"sources": [
+		"ie_fix.scss"
+	],
+	"mappings": "AAAA,GAAG,CACF,eAAe,CAAC;EACb,qBAAqB,EAAE,OAAQ,GAC/B",
+	"names": []
+}
