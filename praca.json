@@ -1,0 +1,311 @@
+{
+    "application": {
+        "title": "Praça das Profissões",
+        "frontend": "bootstrap3",
+        "theme": "bootswatch-cerulean",
+        "packages": {
+            "npm": [
+                "nodemailer"
+            ]
+        },
+        "login_with_password": true,
+        "roles": [
+            "admin",
+            "manager",
+            "user"
+        ],
+        "default_role": "user",
+        "collections": [
+            {
+                "name": "schools",
+                "roles_allowed_to_read": [
+                    "owner",
+                    "admin",
+                    "manager"
+                ],
+                "roles_allowed_to_insert": [
+                    "user",
+                    "admin"
+                ],
+                "roles_allowed_to_update": [
+                    "owner",
+                    "admin"
+                ],
+                "roles_allowed_to_delete": [
+                    "owner",
+                    "admin"
+                ],
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Nome da Escola",
+                        "required": true
+                    },
+                    {
+                        "name": "phone",
+                        "title": "Telefone",
+                        "default": "-"
+                    },
+                    {
+                        "name": "type",
+                        "title": "Tipo",
+                        "required": true,
+                        "input": "select",
+                        "input_items": [
+                            {
+                                "value": "eeefm",
+                                "title": "EEEFM"
+                            },
+                            {
+                                "value": "particular",
+                                "title": "Particular"
+                            },
+                            {
+                                "value": "outro",
+                                "title": "Outro"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "classes",
+                        "title": "Turmas",
+                        "type": "array",
+                        "array_item_type": "object",
+                        "input": "crud",
+                        "crud_fields": [
+                            {
+                                "name": "year",
+                                "title": "Ano",
+                                "required": true,
+                                "input": "select",
+                                "input_items": [
+                                    {
+                                        "value": "nono",
+                                        "title": "9o ano fundamental"
+                                    },
+                                    {
+                                        "value": "primeiro ",
+                                        "title": "1o ano médio"
+                                    },
+                                    {
+                                        "value": "segundo",
+                                        "title": "2o ano médio"
+                                    },
+                                    {
+                                        "value": "terceiro",
+                                        "title": "3o ano médio"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "shift",
+                                "title": "Turno",
+                                "required": true,
+                                "input": "select",
+                                "input_items": [
+                                    {
+                                        "value": "manha",
+                                        "title": "Manhã"
+                                    },
+                                    {
+                                        "value": "tarde",
+                                        "title": "Tarde"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "class",
+                                "title": "Turma",
+                                "display_helper": "Turma A, B, C... (se houver somente uma, deixe vazio)",
+                                "default": "-"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "visits",
+                "roles_allowed_to_read": [
+                    "owner",
+                    "admin",
+                    "manager"
+                ],
+                "roles_allowed_to_insert": [
+                    "admin",
+                    "manager"
+                ],
+                "roles_allowed_to_update": [
+                    "owner",
+                    "admin",
+                    "manager"
+                ],
+                "roles_allowed_to_delete": [
+                    "owner",
+                    "admin"
+                ],
+                "fields": [
+                    {
+                        "name": "date",
+                        "title": "Data",
+                        "required": true,
+                        "type": "date",
+                        "format": "DD/MM/YYYY"
+                    },
+                    {
+                        "name": "shift",
+                        "title": "Turno",
+                        "required": true,
+                        "input": "select",
+                        "input_items": [
+                            {
+                                "value": "manha",
+                                "title": "Manhã"
+                            },
+                            {
+                                "value": "tarde",
+                                "title": "Tarde"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "public_zone": {
+            "pages": [
+                {
+                    "name": "index",
+                    "custom_template": "index"
+                },
+                {
+                    "name": "inicio",
+                    "title": "Início",
+                    "components": [
+                        {
+                            "name": "home_jumbotron",
+                            "title": "Sistema de visitas da Praça das Profissões",
+                            "type": "jumbotron",
+                            "button_title": "Entre &raquo;",
+                            "button_route": "entrar"
+                        }
+                    ]
+                },
+                {
+                    "name": "entrar",
+                    "template": "login.html"
+                },
+                {
+                    "name": "registrar",
+                    "template": "register.html"
+                },
+                {
+                    "name": "esqueceu_senha",
+                    "template": "forgot_password.html"
+                },
+                {
+                    "name": "resetar_senha",
+                    "template": "reset_password.html"
+                }
+            ],
+            "components": [
+                {
+                    "name": "left_menu",
+                    "type": "menu",
+                    "class": "nav navbar-nav",
+                    "dest_selector": "#menu",
+                    "items": [
+                        {
+                            "title": "Início",
+                            "route": "inicio"
+                        }
+                    ]
+                },
+                {
+                    "name": "right_menu",
+                    "type": "menu",
+                    "class": "nav navbar-nav navbar-right",
+                    "dest_selector": "#menu",
+                    "items": [
+                        {
+                            "title": "Registrar",
+                            "route": "registrar"
+                        },
+                        {
+                            "title": "Entrar",
+                            "route": "entrar"
+                        }
+                    ]
+                }
+            ]
+        },
+        "private_zone": {
+            "pages": [
+                {
+                    "name": "inicio_usuario",
+                    "title": "Olá, {{userFullName}}!"
+                },
+                {
+                    "name": "configuracoes",
+                    "pages": [
+                        {
+                            "name": "alterar_senha",
+                            "template": "change_pass.html"
+                        }
+                    ],
+                    "components": [
+                        {
+                            "name": "side_menu",
+                            "type": "menu",
+                            "class": "nav nav-stacked nav-pills",
+                            "items": [
+                                {
+                                    "title": "Alterar senha",
+                                    "route": "configuracoes.alterar_senha"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "sair",
+                    "template": "logout.html",
+                    "action_code": "App.logout();"
+                }
+            ],
+            "components": [
+                {
+                    "name": "left_menu",
+                    "type": "menu",
+                    "class": "nav navbar-nav",
+                    "dest_selector": "#menu",
+                    "items": [
+                        {
+                            "title": "Início",
+                            "route": "inicio_usuario"
+                        }
+                    ]
+                },
+                {
+                    "name": "right_menu",
+                    "type": "menu",
+                    "class": "nav navbar-nav navbar-right",
+                    "dest_selector": "#menu",
+                    "items": [
+                        {
+                            "title": "{{userEmail}}",
+                            "items": [
+                                {
+                                    "title": "Configurações",
+                                    "route": "configuracoes"
+                                },
+                                {
+                                    "title": "Sair",
+                                    "route": "sair"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
