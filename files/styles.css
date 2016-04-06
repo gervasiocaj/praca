@@ -1,0 +1,50 @@
+#logo {
+  width: 50%;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.header-wrapper {
+    background: url(images/background.png) no-repeat center center;
+    background-size: cover;
+    display: table;
+    height: calc(100vh - 50px);
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+#map {
+  height: 270px;
+}
+
+.section {
+    padding-top: 5%;
+}
+
+.section h3 {
+  color: black;
+  font-size: 24pt;
+  text-align: center;
+}
+
+#programacao {
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+#programacao h2 {
+  color: black;
+  font-size: 16pt;
+}
+
+#sobre .col-md-6 {
+  text-align: justify;
+  padding-left: 40px;
+  padding-right: 40px;
+}

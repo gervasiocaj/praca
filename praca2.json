@@ -1,36 +1,8 @@
 {
   "application": {
     "title": "Praça das Profissões",
-    "theme": "bootswatch-cosmo",
-    "packages": {
-      "meteor": [
-        "email"
-      ]
-    },
-    "copy_files": [
-      {
-        "source": "files/logo.png",
-        "dest": "PUBLIC_IMAGES_DIR/logo.png"
-      },
-      {
-        "source": "files/background.png",
-        "dest": "PUBLIC_IMAGES_DIR/background.png"
-      },
-      {
-        "source": "files/styles.css",
-        "dest": "CLIENT_STYLES_DIR/styles.css"
-      }
-    ],
-    "queries": [
-      {
-        "name": "current_user_data",
-        "collection": "users",
-        "filter": {
-          "_id": "Meteor.userId()"
-        },
-        "find_one": true
-      }
-    ],
+    "frontend": "bootstrap3",
+    "theme": "bootswatch-cerulean",
     "login_with_password": true,
     "roles": [
       "admin",
@@ -215,93 +187,60 @@
     ],
     "public_zone": {
       "navbar_class": "navbar-default navbar-fixed-top",
-      "pages": [
-        {
-          "name": "home_public",
-          "template_rendered_code": "$('.sistema').hide(); $('.inicio').show();",
-          "container_class": "bg",
-          "components": [
-            {
-              "name": "extern",
-              "type": "custom_component",
-              "custom_template": "files/home.html"
-            }
-          ]
-        },
-        {
-          "name": "sistema",
-          "template_rendered_code": "$('.inicio').hide(); $('.sistema').show();",
-          "components": [
-            {
-              "name": "home_jumbotron",
-              "title": "Sistema de visitas<br/> da Praça das Profissões",
-              "type": "jumbotron",
-              "button_title": "Entre &raquo;",
-              "button_route": "sistema.entrar"
-            }
-          ],
-          "pages": [
-            {
-              "name": "entrar",
-              "template": "login"
-            },
-            {
-              "name": "registrar",
-              "template": "register"
-            },
-            {
-              "name": "esqueceu_senha",
-              "template": "forgot_password"
-            },
-            {
-              "name": "resetar_senha",
-              "template": "reset_password",
-              "route_params": [
-                "resetPasswordToken"
-              ]
-            }
-          ]
-        }
-      ],
       "components": [
         {
           "name": "left_menu",
           "type": "menu",
           "class": "nav navbar-nav",
+          "dest_selector": "#menu",
           "items": [
             {
-              "title": "Início",
+              "title": "Home",
               "route": "home_public"
-            },
-            {
-              "title": "Sistema",
-              "route": "sistema"
             }
           ]
-        },
+        }
+      ],
+      "pages": [
         {
-          "name": "right_menu_inicio",
-          "type": "menu",
-          "class": "nav navbar-nav navbar-right inicio",
-          "items": [
+          "name": "home_public",
+          "components": [
             {
-              "title": "A Praça",
-              "url": "#sobre"
+              "name": "jumbotron",
+              "type": "jumbotron",
+              "title": "Olá, mundo!"
             }
-          ]
-        },
-        {
-          "name": "right_menu_sistema",
-          "type": "menu",
-          "class": "nav navbar-nav navbar-right sistema",
-          "items": [
+          ],
+          "pages": [
             {
-              "title": "Registrar",
-              "route": "sistema.registrar"
-            },
-            {
-              "title": "Entrar",
-              "route": "sistema.entrar"
+              "name": "sistema",
+              "components": [
+                {
+                  "name": "sistema_jumbotron",
+                  "type": "jumbotron",
+                  "title": "Sistema de visitas<br/> da Praça das Profissões",
+                  "button_title": "Entre &raquo;",
+                  "button_route": "sistema/entrar"
+                }
+              ],
+              "pages": [
+                {
+                  "name": "entrar",
+                  "template": "login.html"
+                },
+                {
+                  "name": "registrar",
+                  "template": "register.html"
+                },
+                {
+                  "name": "esqueceu_senha",
+                  "template": "forgot_password.html"
+                },
+                {
+                  "name": "resetar_senha",
+                  "template": "reset_password.html"
+                }
+              ]
             }
           ]
         }
@@ -309,101 +248,26 @@
     },
     "private_zone": {
       "navbar_class": "navbar-default navbar-fixed-top",
+      "components": [],
       "pages": [
         {
-          "name": "home_private",
-          "title": "Olá, {{userFullName}}!"
-        },
-        {
-          "name": "configuracoes",
+          "name": "sistema",
+          "title": "Olá, {{userFullName}}!",
           "pages": [
             {
-              "name": "perfil",
-              "components": [
+              "name": "configuracoes",
+              "components": [],
+              "pages": [
                 {
-                  "name": "edit_form",
-                  "type": "form",
-                  "mode": "update",
-                  "title": "Edite seu perfil",
-                  "submit_route": "configuracoes.perfil",
-                  "query_name": "current_user_data",
-                  "query_params": [],
-                  "fields": [
-                    {
-                      "name": "perfil.name",
-                      "title": "Nome",
-                      "required": true
-                    },
-                    {
-                      "name": "perfil.email",
-                      "title": "E-mail",
-                      "type": "email",
-                      "required": true
-                    }
-                  ]
+                  "name": "alterar_senha",
+                  "template": "change_pass.html"
                 }
               ]
             },
             {
-              "name": "alterar_senha",
-              "template": "change_pass"
-            }
-          ],
-          "components": [
-            {
-              "name": "side_menu",
-              "type": "menu",
-              "class": "nav nav-stacked nav-pills",
-              "items": [
-                {
-                  "title": "Perfil",
-                  "route": "configuracoes.perfil"
-                },
-                {
-                  "title": "Alterar senha",
-                  "route": "configuracoes.alterar_senha"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "sair",
-          "template": "logout",
-          "action_code": "App.logout();"
-        }
-      ],
-      "components": [
-        {
-          "name": "left_menu",
-          "type": "menu",
-          "class": "nav navbar-nav",
-          "dest_selector": "#menu",
-          "items": [
-            {
-              "title": "Início",
-              "route": "home_private"
-            }
-          ]
-        },
-        {
-          "name": "right_menu",
-          "type": "menu",
-          "class": "nav navbar-nav navbar-right",
-          "dest_selector": "#menu",
-          "items": [
-            {
-              "title": "{{userEmail}}",
-              "items": [
-                {
-                  "title": "Configurações",
-                  "route": "configuracoes"
-                },
-                {
-                  "title": "Sair",
-                  "route": "sair"
-                }
-              ]
+              "name": "sair",
+              "template": "logout.html",
+              "action_code": "App.logout();"
             }
           ]
         }
