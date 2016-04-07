@@ -9,32 +9,33 @@
 }
 
 .header-wrapper {
-    background: url(images/background.png) no-repeat center center;
-    background-size: cover;
-    display: table;
-    height: calc(100vh - 50px);
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    overflow-x: hidden;
+  background: url(images/background.png) no-repeat center center;
+  background-size: cover;
+  display: table;
+  height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
 }
 
 #map {
   height: 270px;
 }
 
-.section {
-    padding-top: 5%;
+section {
+  padding-top: 5%;
 }
 
-.section h3 {
-  color: black;
-  font-size: 24pt;
+section p {
+  text-align: justify;
+}
+
+section h2 {
   text-align: center;
 }
 
 #programacao {
-  padding-left: 7%;
   padding-right: 7%;
 }
 
@@ -43,8 +44,29 @@
   font-size: 16pt;
 }
 
-#sobre .col-md-6 {
-  text-align: justify;
-  padding-left: 40px;
-  padding-right: 40px;
+.footer .footer-social-block {
+  margin: 0;
+  list-style-type: none;
+  text-align: center;
+}
+
+.footer  li {
+  display: inline-block;
+  padding-right: 4px;
+}
+
+.footer  li a {
+  display: block;
+  color: #e3e1e1;
+  transition: color 0.3s;
+}
+
+.footer {
+  background-color: #000;
+  color: #FDFDFD;
+  padding: 32px 0;
+}
+
+#footer {
+  display: none;
 }

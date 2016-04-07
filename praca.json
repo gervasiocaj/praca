@@ -222,7 +222,87 @@
           "container_class": "bg",
           "components": [
             {
-              "name": "extern",
+              "name": "myheader",
+              "type": "custom_component",
+              "custom_template": "files/header.html",
+              "dest_position": "before"
+            },
+            {
+              "name": "section_sobre",
+              "type": "section",
+              "components": [
+                {
+                  "name": "sobre1",
+                  "type": "div",
+                  "class": "col-md-6",
+                  "components": [
+                    {
+                      "name": "sobre1_col",
+                      "type": "markdown",
+                      "source_file": "texts/sobre1.md"
+                    }
+                  ]
+                },
+                {
+                  "name": "sobre2",
+                  "type": "div",
+                  "class": "col-md-6",
+                  "components": [
+                    {
+                      "name": "sobre2_cols",
+                      "type": "markdown",
+                      "source_file": "texts/sobre2.md"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "section_programacao",
+              "type": "section",
+              "components": [
+                {
+                  "name": "mycalendar",
+                  "type": "custom_component",
+                  "custom_template": "files/calendar.html"
+                }
+              ]
+            },
+            {
+              "name": "section_contato",
+              "type": "section",
+              "components": [
+                {
+                  "name": "contact",
+                  "type": "form",
+                  "title": "Alguma dúvida? Mande uma mensagem!",
+                  "mode": "insert",
+                  "fields": [
+                    {
+                      "name": "name",
+                      "title": "Nome",
+                      "required": true
+                    },
+                    {
+                      "name": "email",
+                      "title": "E-mail",
+                      "type": "email",
+                      "required": true
+                    },
+                    {
+                      "name": "message",
+                      "title": "Mensagem",
+                      "input": "textarea",
+                      "required": true
+                    }
+                  ],
+                  "submit_button_title": "Send",
+                  "submit_code": "Meteor.call('sendMail', { from: values.name + ' <' + values.email + '>', to: 'pracadasprofissoes@gmail.com', subject: 'Formulário de Contato: ' + values.name, text: values.message}, function(e) {  if(e) errorAction(e.message); else submitAction('Sua mensagem foi enviada. Responderemos em breve :)'); } );"
+                }
+              ]
+            },
+            {
+              "name": "myrest",
               "type": "custom_component",
               "custom_template": "files/home.html"
             }
@@ -287,6 +367,14 @@
             {
               "title": "A Praça",
               "url": "#sobre"
+            },
+            {
+              "title": "Programação",
+              "url": "#programacao"
+            },
+            {
+              "title": "Contato",
+              "url": "#contato"
             }
           ]
         },
