@@ -29,6 +29,22 @@
           "_id": "Meteor.userId()"
         },
         "find_one": true
+      },
+      {
+        "name": "my_school",
+        "collection": "schools",
+        "find_one": true,
+        "filter": {
+          "createdBy": "Meteor.userId()"
+        }
+      },
+      {
+        "name": "escola_vazia",
+        "collection": "schools",
+        "filter": {
+          "_id": null
+        },
+        "find_one": true
       }
     ],
     "login_with_password": true,
@@ -218,7 +234,7 @@
       "pages": [
         {
           "name": "home_public",
-          "template_rendered_code": "$('.sistema').hide(); $('.inicio').show();",
+          "template_rendered_code": "$('.sistema').hide(); $('.inicio').show(); $('html,body').scrollTop(0);",
           "container_class": "bg",
           "components": [
             {
@@ -296,15 +312,15 @@
                       "required": true
                     }
                   ],
-                  "submit_button_title": "Send",
+                  "submit_button_title": "Enviar",
                   "submit_code": "Meteor.call('sendMail', { from: values.name + ' <' + values.email + '>', to: 'pracadasprofissoes@gmail.com', subject: 'Formulário de Contato: ' + values.name, text: values.message}, function(e) {  if(e) errorAction(e.message); else submitAction('Sua mensagem foi enviada. Responderemos em breve :)'); } );"
                 }
               ]
             },
             {
-              "name": "myrest",
+              "name": "footer",
               "type": "custom_component",
-              "custom_template": "files/home.html"
+              "custom_template": "files/footer.html"
             }
           ]
         },
@@ -323,7 +339,7 @@
           "pages": [
             {
               "name": "entrar",
-              "template": "login"
+              "custom_template": "files/login.html"
             },
             {
               "name": "registrar",
@@ -456,9 +472,26 @@
           ]
         },
         {
+          "name": "escola",
+          "title": "Minha escola",
+          "type": "data_view",
+          "text_if_empty": "Você ainda não cadastrou sua escola.",
+          "query_name": "my_school",
+          "query_params": []
+        },
+        {
+          "name": "cadastrar_escola",
+          "title": "Cadastrar escola",
+          "type": "form",
+          "mode": "insert",
+          "query_name": "escola_vazia",
+          "submit_route": "escola",
+          "cancel_route": "escola"
+        },
+        {
           "name": "sair",
           "template": "logout",
-          "action_code": "App.logout();"
+          "action_code": "Meteor.logout(function(err) {Session.set('ses', false)});"
         }
       ],
       "components": [
