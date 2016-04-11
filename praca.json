@@ -481,12 +481,17 @@
         },
         {
           "name": "cadastrar_escola",
-          "title": "Cadastrar escola",
-          "type": "form",
-          "mode": "insert",
-          "query_name": "escola_vazia",
-          "submit_route": "escola",
-          "cancel_route": "escola"
+          "components": [
+            {
+              "name": "cadastrar_escola_form",
+              "title": "Cadastrar escola",
+              "type": "form",
+              "mode": "insert",
+              "query_name": "escola_vazia",
+              "submit_route": "escola",
+              "cancel_route": "escola"
+            },
+          ]
         },
         {
           "name": "sair",
