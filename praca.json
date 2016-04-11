@@ -45,6 +45,34 @@
           "_id": null
         },
         "find_one": true
+      },
+      {
+        "name": "inscricao_vazia",
+        "collection": "entries",
+        "filter": {
+          "_id": null
+        },
+        "find_one": true
+      },
+      {
+        "name": "ultima_inscricao",
+        "collection": "entries",
+        "filter": {
+          "createdBy": "Meteor.userId()"
+        },
+        "options": {
+          "sort": {
+            "createdAt": -1
+          }
+        },
+        "find_one": true
+      },
+      {
+        "name": "inscricao_disponivel",
+        "collection": "calls",
+        "filter": {
+          "status": "ativo"
+        }
       }
     ],
     "login_with_password": true,
@@ -81,9 +109,8 @@
             "required": true
           },
           {
-            "name": "cnpj",
-            "title": "CNPJ da Escola",
-            "required": true
+            "name": "short_name",
+            "title": "Sigla do nome da Escola"
           },
           {
             "name": "address",
@@ -91,19 +118,140 @@
             "required": true
           },
           {
+            "name": "address2",
+            "title": "Bairro",
+            "required": true
+          },
+          {
+            "name": "city",
+            "title": "Cidade",
+            "required": true
+          },
+          {
+            "name": "state",
+            "title": "Estado",
+            "required": true,
+            "input": "select",
+            "input_items": [
+              {
+                "value": "AC",
+                "title": "AC"
+              },
+              {
+                "value": "AL",
+                "title": "AL"
+              },
+              {
+                "value": "AP",
+                "title": "AP"
+              },
+              {
+                "value": "AM",
+                "title": "AM"
+              },
+              {
+                "value": "BA",
+                "title": "BA"
+              },
+              {
+                "value": "CE",
+                "title": "CE"
+              },
+              {
+                "value": "DF",
+                "title": "DF"
+              },
+              {
+                "value": "ES",
+                "title": "ES"
+              },
+              {
+                "value": "GO",
+                "title": "GO"
+              },
+              {
+                "value": "MA",
+                "title": "MA"
+              },
+              {
+                "value": "MT",
+                "title": "MT"
+              },
+              {
+                "value": "MS",
+                "title": "MS"
+              },
+              {
+                "value": "MG",
+                "title": "MG"
+              },
+              {
+                "value": "PA",
+                "title": "PA"
+              },
+              {
+                "value": "PB",
+                "title": "PB"
+              },
+              {
+                "value": "PR",
+                "title": "PR"
+              },
+              {
+                "value": "PE",
+                "title": "PE"
+              },
+              {
+                "value": "PI",
+                "title": "PI"
+              },
+              {
+                "value": "RJ",
+                "title": "RJ"
+              },
+              {
+                "value": "RN",
+                "title": "RN"
+              },
+              {
+                "value": "RS",
+                "title": "RS"
+              },
+              {
+                "value": "RO",
+                "title": "RO"
+              },
+              {
+                "value": "RR",
+                "title": "RR"
+              },
+              {
+                "value": "SC",
+                "title": "SC"
+              },
+              {
+                "value": "SP",
+                "title": "SP"
+              },
+              {
+                "value": "SE",
+                "title": "SE"
+              },
+              {
+                "value": "TO",
+                "title": "TO"
+              }
+            ]
+          },
+          {
             "name": "phone",
             "title": "Telefone da Escola",
-            "default": "-"
-          },
-          {
-            "name": "director",
-            "title": "Diretor Geral da Escola",
             "required": true
           },
           {
-            "name": "president",
-            "title": "Presidente do Conselho Escolar",
-            "required": true
+            "name": "site",
+            "title": "Página institucional",
+            "default": ""
           },
           {
             "name": "type",
@@ -124,6 +272,366 @@
                 "title": "Outro"
               }
             ]
+          },
+          {
+            "name": "director",
+            "title": "Diretor Geral da Escola",
+            "required": true
+          },
+          {
+            "name": "director_rg",
+            "title": "RG do Diretor Geral",
+            "required": true
+          },
+          {
+            "name": "director_cpf",
+            "title": "CPF do Diretor Geral",
+            "required": true
+          },
+          {
+            "name": "director_birthday",
+            "title": "Nascimento",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "director_date",
+            "title": "Início da Gestão Escolar",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "director_address",
+            "title": "Endereço Residencial e número",
+            "required": true
+          },
+          {
+            "name": "director_address2",
+            "title": "Bairro",
+            "required": true
+          },
+          {
+            "name": "director_cep",
+            "title": "CEP",
+            "required": true
+          },
+          {
+            "name": "director_city",
+            "title": "Cidade",
+            "required": true
+          },
+          {
+            "name": "director_state",
+            "title": "Estado",
+            "required": true,
+            "input": "select",
+            "input_items": [
+              {
+                "value": "AC",
+                "title": "AC"
+              },
+              {
+                "value": "AL",
+                "title": "AL"
+              },
+              {
+                "value": "AP",
+                "title": "AP"
+              },
+              {
+                "value": "AM",
+                "title": "AM"
+              },
+              {
+                "value": "BA",
+                "title": "BA"
+              },
+              {
+                "value": "CE",
+                "title": "CE"
+              },
+              {
+                "value": "DF",
+                "title": "DF"
+              },
+              {
+                "value": "ES",
+                "title": "ES"
+              },
+              {
+                "value": "GO",
+                "title": "GO"
+              },
+              {
+                "value": "MA",
+                "title": "MA"
+              },
+              {
+                "value": "MT",
+                "title": "MT"
+              },
+              {
+                "value": "MS",
+                "title": "MS"
+              },
+              {
+                "value": "MG",
+                "title": "MG"
+              },
+              {
+                "value": "PA",
+                "title": "PA"
+              },
+              {
+                "value": "PB",
+                "title": "PB"
+              },
+              {
+                "value": "PR",
+                "title": "PR"
+              },
+              {
+                "value": "PE",
+                "title": "PE"
+              },
+              {
+                "value": "PI",
+                "title": "PI"
+              },
+              {
+                "value": "RJ",
+                "title": "RJ"
+              },
+              {
+                "value": "RN",
+                "title": "RN"
+              },
+              {
+                "value": "RS",
+                "title": "RS"
+              },
+              {
+                "value": "RO",
+                "title": "RO"
+              },
+              {
+                "value": "RR",
+                "title": "RR"
+              },
+              {
+                "value": "SC",
+                "title": "SC"
+              },
+              {
+                "value": "SP",
+                "title": "SP"
+              },
+              {
+                "value": "SE",
+                "title": "SE"
+              },
+              {
+                "value": "TO",
+                "title": "TO"
+              }
+            ]
+          },
+          {
+            "name": "director_phone",
+            "title": "Telefone",
+            "required": true
+          },
+          {
+            "name": "director_phone_mobile",
+            "title": "Celular",
+            "required": true
+          },
+          {
+            "name": "director_email",
+            "title": "Email",
+            "type": "email"
+          },
+          {
+            "name": "president",
+            "title": "Presidente do Conselho Escolar",
+            "required": true
+          },
+          {
+            "name": "president_rg",
+            "title": "RG do Presidente do Conselho",
+            "required": true
+          },
+          {
+            "name": "president_cpf",
+            "title": "CPF do Presidente do Conselho",
+            "required": true
+          },
+          {
+            "name": "president_birthday",
+            "title": "Nascimento",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "president_date",
+            "title": "Início da Presidência do Conselho",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "president_address",
+            "title": "Endereço Residencial e número",
+            "required": true
+          },
+          {
+            "name": "president_address2",
+            "title": "Bairro",
+            "required": true
+          },
+          {
+            "name": "president_cep",
+            "title": "CEP",
+            "required": true
+          },
+          {
+            "name": "president_city",
+            "title": "Cidade",
+            "required": true
+          },
+          {
+            "name": "president_state",
+            "title": "Estado",
+            "required": true,
+            "input": "select",
+            "input_items": [
+              {
+                "value": "AC",
+                "title": "AC"
+              },
+              {
+                "value": "AL",
+                "title": "AL"
+              },
+              {
+                "value": "AP",
+                "title": "AP"
+              },
+              {
+                "value": "AM",
+                "title": "AM"
+              },
+              {
+                "value": "BA",
+                "title": "BA"
+              },
+              {
+                "value": "CE",
+                "title": "CE"
+              },
+              {
+                "value": "DF",
+                "title": "DF"
+              },
+              {
+                "value": "ES",
+                "title": "ES"
+              },
+              {
+                "value": "GO",
+                "title": "GO"
+              },
+              {
+                "value": "MA",
+                "title": "MA"
+              },
+              {
+                "value": "MT",
+                "title": "MT"
+              },
+              {
+                "value": "MS",
+                "title": "MS"
+              },
+              {
+                "value": "MG",
+                "title": "MG"
+              },
+              {
+                "value": "PA",
+                "title": "PA"
+              },
+              {
+                "value": "PB",
+                "title": "PB"
+              },
+              {
+                "value": "PR",
+                "title": "PR"
+              },
+              {
+                "value": "PE",
+                "title": "PE"
+              },
+              {
+                "value": "PI",
+                "title": "PI"
+              },
+              {
+                "value": "RJ",
+                "title": "RJ"
+              },
+              {
+                "value": "RN",
+                "title": "RN"
+              },
+              {
+                "value": "RS",
+                "title": "RS"
+              },
+              {
+                "value": "RO",
+                "title": "RO"
+              },
+              {
+                "value": "RR",
+                "title": "RR"
+              },
+              {
+                "value": "SC",
+                "title": "SC"
+              },
+              {
+                "value": "SP",
+                "title": "SP"
+              },
+              {
+                "value": "SE",
+                "title": "SE"
+              },
+              {
+                "value": "TO",
+                "title": "TO"
+              }
+            ]
+          },
+          {
+            "name": "president_phone",
+            "title": "Telefone",
+            "required": true
+          },
+          {
+            "name": "president_phone_mobile",
+            "title": "Celular",
+            "required": true
+          },
+          {
+            "name": "president_email",
+            "title": "Email",
+            "type": "email"
           },
           {
             "name": "classes",
@@ -167,18 +675,313 @@
                     "title": "Manhã"
                   },
                   {
-                    "value": "tarde",
-                    "title": "Tarde"
+                    "value": "vespertino",
+                    "title": "Vespertino"
+                  },
+                  {
+                    "value": "noturno",
+                    "title": "Noturno"
                   }
                 ]
               },
               {
                 "name": "class",
                 "title": "Turma",
-                "display_helper": "Turma A, B, C... (se houver somente uma, deixe vazio)",
                 "default": "-"
+              },
+              {
+                "name": "obs",
+                "title": "Observação"
+              },
+              {
+                "name": "visitors",
+                "title": "Número de visitantes",
+                "type": "integer",
+                "required": true,
+                "min": 0,
+                "max": 100
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "calls",
+        "roles_allowed_to_read": [
+          "admin",
+          "manager"
+        ],
+        "roles_allowed_to_insert": [
+          "admin",
+          "manager"
+        ],
+        "roles_allowed_to_update": [
+          "admin",
+          "manager"
+        ],
+        "roles_allowed_to_delete": [
+          "admin",
+          "manager"
+        ],
+        "fields": [
+          {
+            "name": "year",
+            "title": "Ano",
+            "type": "integer",
+            "min": 2015,
+            "max": 2200,
+            "required": true
+          },
+          {
+            "name": "beginning",
+            "title": "Início",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "end",
+            "title": "Fim",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "status",
+            "title": "Status",
+            "required": true,
+            "input": "radio",
+            "input_items": [
+              {
+                "value": "ativo",
+                "title": "Ativo"
+              },
+              {
+                "value": "inativo",
+                "title": "Inativo"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "entries",
+        "roles_allowed_to_read": [
+          "owner",
+          "admin",
+          "manager"
+        ],
+        "roles_allowed_to_insert": [
+          "user",
+          "admin"
+        ],
+        "roles_allowed_to_update": [
+          "owner",
+          "admin",
+          "manager"
+        ],
+        "roles_allowed_to_delete": [
+          "admin",
+          "manager"
+        ],
+        "fields": [
+          {
+            "name": "call_id",
+            "title": "Chamada",
+            "required": true,
+            "lookup_query_name": "inscricao_disponivel",
+            "lookup_field": "year",
+            "lookup_key": "_id",
+            "show_in_dataview": false,
+            "show_in_read_only_form": false,
+            "join_collection": "calls",
+            "join_container": "call",
+            "join_fields": [
+              "year",
+              "status",
+              "beginning",
+              "end"
+            ]
+          },
+          {
+            "name": "teacher",
+            "title": "Professor responsável",
+            "required": true
+          },
+          {
+            "name": "teacher_rg",
+            "title": "RG do professor responsável",
+            "required": true
+          },
+          {
+            "name": "teacher_cpf",
+            "title": "CPF do professor responsável",
+            "required": true
+          },
+          {
+            "name": "teacher_birthday",
+            "title": "Nascimento",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "teacher_date",
+            "title": "Início do vínculo com a escola",
+            "required": true,
+            "type": "date",
+            "format": "DD/MM/YYYY"
+          },
+          {
+            "name": "teacher_address",
+            "title": "Endereço Residencial e número",
+            "required": true
+          },
+          {
+            "name": "teacher_address2",
+            "title": "Bairro",
+            "required": true
+          },
+          {
+            "name": "teacher_cep",
+            "title": "CEP",
+            "required": true
+          },
+          {
+            "name": "teacher_city",
+            "title": "Cidade",
+            "required": true
+          },
+          {
+            "name": "teacher_state",
+            "title": "Estado",
+            "required": true,
+            "input": "select",
+            "input_items": [
+              {
+                "value": "AC",
+                "title": "AC"
+              },
+              {
+                "value": "AL",
+                "title": "AL"
+              },
+              {
+                "value": "AP",
+                "title": "AP"
+              },
+              {
+                "value": "AM",
+                "title": "AM"
+              },
+              {
+                "value": "BA",
+                "title": "BA"
+              },
+              {
+                "value": "CE",
+                "title": "CE"
+              },
+              {
+                "value": "DF",
+                "title": "DF"
+              },
+              {
+                "value": "ES",
+                "title": "ES"
+              },
+              {
+                "value": "GO",
+                "title": "GO"
+              },
+              {
+                "value": "MA",
+                "title": "MA"
+              },
+              {
+                "value": "MT",
+                "title": "MT"
+              },
+              {
+                "value": "MS",
+                "title": "MS"
+              },
+              {
+                "value": "MG",
+                "title": "MG"
+              },
+              {
+                "value": "PA",
+                "title": "PA"
+              },
+              {
+                "value": "PB",
+                "title": "PB"
+              },
+              {
+                "value": "PR",
+                "title": "PR"
+              },
+              {
+                "value": "PE",
+                "title": "PE"
+              },
+              {
+                "value": "PI",
+                "title": "PI"
+              },
+              {
+                "value": "RJ",
+                "title": "RJ"
+              },
+              {
+                "value": "RN",
+                "title": "RN"
+              },
+              {
+                "value": "RS",
+                "title": "RS"
+              },
+              {
+                "value": "RO",
+                "title": "RO"
+              },
+              {
+                "value": "RR",
+                "title": "RR"
+              },
+              {
+                "value": "SC",
+                "title": "SC"
+              },
+              {
+                "value": "SP",
+                "title": "SP"
+              },
+              {
+                "value": "SE",
+                "title": "SE"
+              },
+              {
+                "value": "TO",
+                "title": "TO"
+              }
+            ]
+          },
+          {
+            "name": "teacher_phone",
+            "title": "Telefone",
+            "required": true
+          },
+          {
+            "name": "teacher_phone_mobile",
+            "title": "Celular",
+            "required": true
+          },
+          {
+            "name": "teacher_email",
+            "title": "Email",
+            "type": "email"
           }
         ]
       },
@@ -268,6 +1071,30 @@
                       "name": "sobre2_cols",
                       "type": "markdown",
                       "source_file": "texts/sobre2.md"
+                    }
+                  ]
+                },
+                {
+                  "name": "sobre3",
+                  "type": "div",
+                  "class": "col-md-6",
+                  "components": [
+                    {
+                      "name": "sobre3_col",
+                      "type": "markdown",
+                      "source_file": "texts/sobre3.md"
+                    }
+                  ]
+                },
+                {
+                  "name": "sobre4",
+                  "type": "div",
+                  "class": "col-md-6",
+                  "components": [
+                    {
+                      "name": "sobre4_cols",
+                      "type": "markdown",
+                      "source_file": "texts/sobre4.md"
                     }
                   ]
                 }
@@ -416,7 +1243,81 @@
       "pages": [
         {
           "name": "home_private",
-          "title": "Olá, {{userFullName}}!"
+          "title": "Olá, {{userFullName}}!",
+          "pages": [
+            {
+              "name": "cadastro",
+              "title": "Cadastro",
+              "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
+              "components": [
+                {
+                  "name": "cadastrar",
+                  "title": "Cadastrar escola",
+                  "type": "form",
+                  "mode": "insert",
+                  "query_name": "escola_vazia",
+                  "query_params": [],
+                  "submit_route": "home_private",
+                  "class": "cadastrar"
+                },
+                {
+                  "name": "visualizar",
+                  "title": "Minha escola",
+                  "type": "form",
+                  "layout": "horizontal",
+                  "mode": "read_only",
+                  "query_name": "my_school",
+                  "query_params": [],
+                  "class": "cadastrado"
+                }
+              ]
+            },
+            {
+              "name": "inscricao",
+              "title": "Inscrição",
+              "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
+              "components": [
+                {
+                  "name": "inscrever",
+                  "title": "Inscrever escola",
+                  "type": "form",
+                  "mode": "insert",
+                  "query_name": "inscricao_vazia",
+                  "query_params": [],
+                  "submit_route": "home_private",
+                  "class": "cadastrado inscrever"
+                },
+                {
+                  "name": "visualizar",
+                  "title": "Inscrição da escola",
+                  "type": "form",
+                  "mode": "read_only",
+                  "query_name": "ultima_inscricao",
+                  "query_params": [],
+                  "class": "cadastrado inscrito"
+                }
+              ]
+            }
+          ],
+          "components": [
+            {
+              "name": "side_menu",
+              "type": "menu",
+              "class": "nav nav-stacked nav-pills",
+              "items": [
+                {
+                  "title": "Cadastro",
+                  "route": "home_private.cadastro"
+                },
+                {
+                  "title": "Inscrição",
+                  "route": "home_private.inscricao",
+                  "class": "cadastrado",
+                  "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}"
+                }
+              ]
+            }
+          ]
         },
         {
           "name": "configuracoes",
@@ -469,28 +1370,6 @@
                 }
               ]
             }
-          ]
-        },
-        {
-          "name": "escola",
-          "title": "Minha escola",
-          "type": "data_view",
-          "text_if_empty": "Você ainda não cadastrou sua escola.",
-          "query_name": "my_school",
-          "query_params": []
-        },
-        {
-          "name": "cadastrar_escola",
-          "components": [
-            {
-              "name": "cadastrar_escola_form",
-              "title": "Cadastrar escola",
-              "type": "form",
-              "mode": "insert",
-              "query_name": "escola_vazia",
-              "submit_route": "escola",
-              "cancel_route": "escola"
-            },
           ]
         },
         {

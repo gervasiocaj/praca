@@ -1,0 +1,2 @@
+##Cadastro
+O cadastro é feito uma única vez por escola e pode ser atualizado se necessário. Cada escola terá seu login e senha, após o termino do cadastro para atualizar seus dados quando for preciso (atualizações de endereço, números de turma, de alunos). Após o cadastro ainda é necessária a realização de uma inscrição para demonstrar interesse nas exposições e definir as datas disponíveis a visita.
