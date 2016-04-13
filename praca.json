@@ -1237,98 +1237,74 @@
       "pages": [
         {
           "name": "home_private",
+          "title": "Olá, {{userFullName}}!",
           "components": [
             {
               "name": "jumbo_cadastro",
               "title": "Cadastro",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "sistema.cadastro"
+              "button_route": "cadastro"
             },
             {
               "name": "jumbo_inscricao",
               "title": "inscricao",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "sistema.inscricao"
+              "button_route": "inscricao"
             }
           ]
         },
         {
-          "name": "sistema",
-          "title": "Olá, {{userFullName}}!",
-          "pages": [
-            {
-              "name": "cadastro",
-              "title": "Cadastro",
-              "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
-              "components": [
-                {
-                  "name": "cadastrar",
-                  "title": "Cadastrar escola",
-                  "type": "form",
-                  "mode": "insert",
-                  "query_name": "escola_vazia",
-                  "query_params": [],
-                  "submit_route": "home_private",
-                  "class": "cadastrar"
-                },
-                {
-                  "name": "visualizar",
-                  "title": "Minha escola",
-                  "type": "form",
-                  "layout": "horizontal",
-                  "mode": "read_only",
-                  "query_name": "my_school",
-                  "query_params": [],
-                  "class": "cadastrado"
-                }
-              ]
-            },
-            {
-              "name": "inscricao",
-              "title": "Inscrição",
-              "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
-              "components": [
-                {
-                  "name": "inscrever",
-                  "title": "Inscrever escola",
-                  "type": "form",
-                  "mode": "insert",
-                  "query_name": "inscricao_vazia",
-                  "query_params": [],
-                  "submit_route": "home_private",
-                  "class": "cadastrado inscrever"
-                },
-                {
-                  "name": "visualizar",
-                  "title": "Inscrição da escola",
-                  "type": "form",
-                  "mode": "read_only",
-                  "query_name": "ultima_inscricao",
-                  "query_params": [],
-                  "class": "cadastrado inscrito"
-                }
-              ]
-            }
-          ],
+          "name": "cadastro",
+          "title": "Cadastro",
+          "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
           "components": [
             {
-              "name": "side_menu",
-              "type": "menu",
-              "class": "nav nav-stacked nav-pills",
-              "items": [
-                {
-                  "title": "Cadastro",
-                  "route": "sistema.cadastro"
-                },
-                {
-                  "title": "Inscrição",
-                  "route": "sistema.inscricao",
-                  "class": "cadastrado",
-                  "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}"
-                }
-              ]
+              "name": "cadastrar",
+              "title": "Cadastrar escola",
+              "type": "form",
+              "mode": "insert",
+              "query_name": "escola_vazia",
+              "query_params": [],
+              "submit_route": "home_private",
+              "class": "cadastrar"
+            },
+            {
+              "name": "visualizar",
+              "title": "Minha escola",
+              "type": "form",
+              "layout": "horizontal",
+              "mode": "read_only",
+              "query_name": "my_school",
+              "query_params": [],
+              "class": "cadastrado"
+            }
+          ]
+        },
+        {
+          "name": "inscricao",
+          "title": "Inscrição",
+          "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
+          "components": [
+            {
+              "name": "inscrever",
+              "title": "Inscrever escola",
+              "type": "form",
+              "mode": "insert",
+              "query_name": "inscricao_vazia",
+              "query_params": [],
+              "submit_route": "home_private",
+              "class": "cadastrado inscrever"
+            },
+            {
+              "name": "visualizar",
+              "title": "Inscrição da escola",
+              "type": "form",
+              "mode": "read_only",
+              "query_name": "ultima_inscricao",
+              "query_params": [],
+              "class": "cadastrado inscrito"
             }
           ]
         },
