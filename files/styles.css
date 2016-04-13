@@ -23,6 +23,14 @@
   height: 270px;
 }
 
+.gandalf {
+    background: #f0f0f0;
+}
+
+.sobre {
+    padding-bottom: 40px;
+}
+
 section {
   padding-top: 5%;
 }
