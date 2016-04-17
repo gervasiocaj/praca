@@ -1,6 +1,5 @@
 {
   "application": {
-    "title": "Praça das Profissões",
     "theme": "bootswatch-cosmo",
     "packages": {
       "meteor": [
@@ -73,6 +72,14 @@
         "filter": {
           "status": "ativo"
         }
+      },
+      {
+        "name": "chamada_vazia",
+        "collection": "calls",
+        "filter": {
+          "_id": null
+        },
+        "find_one": true
       }
     ],
     "login_with_password": true,
@@ -86,6 +93,7 @@
       {
         "name": "schools",
         "roles_allowed_to_read": [
+          "user",
           "owner",
           "admin",
           "manager"
@@ -647,10 +655,6 @@
                 "input": "select",
                 "input_items": [
                   {
-                    "value": "nono",
-                    "title": "9o ano fundamental"
-                  },
-                  {
                     "value": "primeiro ",
                     "title": "1o ano médio"
                   },
@@ -708,6 +712,8 @@
       {
         "name": "calls",
         "roles_allowed_to_read": [
+          "user",
+          "owner",
           "admin",
           "manager"
         ],
@@ -789,6 +795,7 @@
             "name": "call_id",
             "title": "Chamada",
             "required": true,
+            "input": "select",
             "lookup_query_name": "inscricao_disponivel",
             "lookup_field": "year",
             "lookup_key": "_id",
@@ -1037,7 +1044,7 @@
       "pages": [
         {
           "name": "home_public",
-          "template_rendered_code": "$('.sistema').hide(); $('.inicio').show(); $('html,body').scrollTop(0);",
+          "template_rendered_code": "$('.sistema').hide();$('.inicio').show();$('html,body').scrollTop(0);",
           "container_class": "bg",
           "components": [
             {
@@ -1090,7 +1097,7 @@
                     {
                       "name": "sobre3_col",
                       "type": "markdown",
-                      "source_file": "texts/sobre4.md"
+                      "source_file": "texts/sobre3.md"
                     }
                   ]
                 },
@@ -1102,7 +1109,7 @@
                     {
                       "name": "sobre4_cols",
                       "type": "markdown",
-                      "source_file": "texts/sobre3.md"
+                      "source_file": "texts/sobre4.md"
                     }
                   ]
                 }
@@ -1138,7 +1145,19 @@
                     }
                   ],
                   "submit_button_title": "Enviar",
-                  "submit_code": "Meteor.call('sendMail', { from: values.name + ' <' + values.email + '>', to: 'pracadasprofissoes@gmail.com', subject: 'Formulário de Contato: ' + values.name, text: values.message}, function(e) {  if(e) errorAction(e.message); else submitAction('Sua mensagem foi enviada. Responderemos em breve :)'); } );"
+                  "submit_code": "Meteor.call('sendMail',{from:values.name+' <'+values.email+'>',to:'pracadasprofissoes@gmail.com',subject:'Formulário de Contato: '+values.name,text:values.message},function(e){e?(errorAction(e.message),$('.email_nao_enviado').removeClass('hide')):(submitAction(),$('.email_enviado').removeClass('hide'))}),$('form .btn').prop('disabled',!0);"
+                },
+                {
+                  "name": "email_enviado",
+                  "type": "div",
+                  "class": "alert alert-success email_enviado hide",
+                  "text": "<strong>Obrigado!</strong> Sua mensagem foi enviada com sucesso. Responderemos em breve <i class='fa fa-smile-o'></i>"
+                },
+                {
+                  "name": "email_nao_enviado",
+                  "type": "div",
+                  "class": "alert alert-danger email_nao_enviado hide",
+                  "text": "<strong>Desculpe!</strong> Sua mensagem não foi enviada. Tente novamente mais tarde, ou ligue para nós."
                 }
               ]
             },
@@ -1168,11 +1187,11 @@
             },
             {
               "name": "registrar",
-              "template": "register"
+              "custom_template": "files/register.html"
             },
             {
               "name": "esqueceu_senha",
-              "template": "forgot_password"
+              "custom_template": "files/forgot_password.html"
             },
             {
               "name": "resetar_senha",
@@ -1195,7 +1214,7 @@
               "route": "home_public"
             },
             {
-              "title": "Sistema",
+              "title": "Cadastro e Inscrição",
               "route": "sistema"
             }
           ]
@@ -1238,27 +1257,66 @@
         {
           "name": "home_private",
           "title": "Olá, {{userFullName}}!",
+          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
           "components": [
             {
               "name": "jumbo_cadastro",
               "title": "Cadastro",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "cadastro"
+              "button_route": "cadastro",
+              "button_title": "Ir para a página"
             },
             {
               "name": "jumbo_inscricao",
-              "title": "inscricao",
+              "title": "Inscrição",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "inscricao"
+              "button_route": "inscricao",
+              "button_title": "Ir para a página"
+            },
+            {
+              "name": "cadastro_nao_finalizado",
+              "type": "div",
+              "class": "alert alert-danger nao_cadastrado",
+              "text": "<strong>Cuidado!</strong> Seu cadastro não foi concluído."
+            },
+            {
+              "name": "inscricao_nao_finalizada",
+              "type": "div",
+              "class": "alert alert-warning cadastrado_nao_inscrito",
+              "text": "<strong>Cuidado!</strong> Sua inscrição ainda não foi concluída."
+            },
+            {
+              "name": "inscricao_finalizada",
+              "type": "div",
+              "class": "alert alert-success cadastrado_inscrito",
+              "text": "<strong>Ótimo!</strong> Seu cadastro e inscrição foram concluídos. Aguarde a homologação."
+            }
+          ]
+        },
+        {
+          "name": "admin",
+          "roles": [
+            "admin",
+            "manager"
+          ],
+          "components": [
+            {
+              "name": "chamada",
+              "title": "Criar chamada",
+              "type": "form",
+              "mode": "insert",
+              "query_name": "chamada_vazia",
+              "query_params": [],
+              "submit_route": "home_private"
             }
           ]
         },
         {
           "name": "cadastro",
           "title": "Cadastro",
-          "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
+          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
           "components": [
             {
               "name": "cadastrar",
@@ -1268,7 +1326,7 @@
               "query_name": "escola_vazia",
               "query_params": [],
               "submit_route": "home_private",
-              "class": "cadastrar"
+              "class": "nao_cadastrado"
             },
             {
               "name": "visualizar",
@@ -1278,14 +1336,14 @@
               "mode": "read_only",
               "query_name": "my_school",
               "query_params": [],
-              "class": "cadastrado"
+              "class": "cadastrado_nao_inscrito cadastrado_inscrito"
             }
           ]
         },
         {
           "name": "inscricao",
           "title": "Inscrição",
-          "template_rendered_code": "if(Schools.findOne({createdBy:Meteor.userId()})){$('.cadastrar').hide();$('.cadastrado').show();if(Entries.findOne({createdBy:Meteor.userId()})){$('.inscrever').hide();$('.inscrito').show();}else{$('.inscrever').show();$('.inscrito').hide();}}else{$('.cadastrar').show();$('.cadastrado').hide();}",
+          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
           "components": [
             {
               "name": "inscrever",
@@ -1295,7 +1353,7 @@
               "query_name": "inscricao_vazia",
               "query_params": [],
               "submit_route": "home_private",
-              "class": "cadastrado inscrever"
+              "class": "cadastrado_nao_inscrito"
             },
             {
               "name": "visualizar",
@@ -1304,7 +1362,7 @@
               "mode": "read_only",
               "query_name": "ultima_inscricao",
               "query_params": [],
-              "class": "cadastrado inscrito"
+              "class": "cadastrado_inscrito"
             }
           ]
         },
@@ -1363,8 +1421,8 @@
         },
         {
           "name": "sair",
-          "template": "logout",
-          "action_code": "Meteor.logout(function(err) {Session.set('ses', false)});"
+          "custom_data_code": "Meteor.logout(function(err) {Session.set('ses', false)});",
+          "template_rendered_code": "Meteor.logout(function(err) {Session.set('ses', false)});"
         }
       ],
       "components": [
@@ -1380,7 +1438,7 @@
             },
             {
               "title": "Início",
-              "route": "sistema"
+              "route": "home_private"
             }
           ]
         },
