@@ -1,5 +1,6 @@
 {
   "application": {
+    "title": "Praça das Profissões",
     "theme": "bootswatch-cosmo",
     "packages": {
       "meteor": [
@@ -64,7 +65,12 @@
             "createdAt": -1
           }
         },
-        "find_one": true
+        "find_one": true,
+        "related_queries": [
+          {
+            "name": "my_school"
+          }
+        ]  
       },
       {
         "name": "inscricao_disponivel",
@@ -93,7 +99,6 @@
       {
         "name": "schools",
         "roles_allowed_to_read": [
-          "user",
           "owner",
           "admin",
           "manager"
@@ -104,11 +109,13 @@
         ],
         "roles_allowed_to_update": [
           "owner",
-          "admin"
+          "admin",
+          "manager"
         ],
         "roles_allowed_to_delete": [
           "owner",
-          "admin"
+          "admin",
+          "manager"
         ],
         "fields": [
           {
@@ -713,7 +720,6 @@
         "name": "calls",
         "roles_allowed_to_read": [
           "user",
-          "owner",
           "admin",
           "manager"
         ],
@@ -779,7 +785,8 @@
         ],
         "roles_allowed_to_insert": [
           "user",
-          "admin"
+          "admin",
+          "manager"
         ],
         "roles_allowed_to_update": [
           "owner",
@@ -1257,14 +1264,15 @@
         {
           "name": "home_private",
           "title": "Olá, {{userFullName}}!",
-          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
+          "query_name": "ultima_inscricao",
+          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "jumbo_cadastro",
               "title": "Cadastro",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "cadastro",
+              "button_route": "cadastros",
               "button_title": "Ir para a página"
             },
             {
@@ -1272,25 +1280,28 @@
               "title": "Inscrição",
               "type": "jumbotron",
               "class": "col-md-6 center",
-              "button_route": "inscricao",
+              "button_route": "inscricoes",
               "button_title": "Ir para a página"
             },
             {
               "name": "cadastro_nao_finalizado",
               "type": "div",
-              "class": "alert alert-danger nao_cadastrado",
+              "query_name": "ultima_inscricao",
+              "class": "alert alert-danger nao_cadastrado hide",
               "text": "<strong>Cuidado!</strong> Seu cadastro não foi concluído."
             },
             {
               "name": "inscricao_nao_finalizada",
               "type": "div",
-              "class": "alert alert-warning cadastrado_nao_inscrito",
+              "query_name": "ultima_inscricao",
+              "class": "alert alert-warning cadastrado_nao_inscrito hide",
               "text": "<strong>Cuidado!</strong> Sua inscrição ainda não foi concluída."
             },
             {
               "name": "inscricao_finalizada",
               "type": "div",
-              "class": "alert alert-success cadastrado_inscrito",
+              "query_name": "ultima_inscricao",
+              "class": "alert alert-success cadastrado_inscrito hide",
               "text": "<strong>Ótimo!</strong> Seu cadastro e inscrição foram concluídos. Aguarde a homologação."
             }
           ]
@@ -1314,9 +1325,10 @@
           ]
         },
         {
-          "name": "cadastro",
+          "name": "cadastros",
           "title": "Cadastro",
-          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
+          "query_name": "ultima_inscricao",
+          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "cadastrar",
@@ -1326,24 +1338,24 @@
               "query_name": "escola_vazia",
               "query_params": [],
               "submit_route": "home_private",
-              "class": "nao_cadastrado"
+              "class": "nao_cadastrado hide"
             },
             {
               "name": "visualizar",
               "title": "Minha escola",
               "type": "form",
-              "layout": "horizontal",
               "mode": "read_only",
               "query_name": "my_school",
               "query_params": [],
-              "class": "cadastrado_nao_inscrito cadastrado_inscrito"
+              "class": "cadastrado_nao_inscrito cadastrado_inscrito hide"
             }
           ]
         },
         {
-          "name": "inscricao",
+          "name": "inscricoes",
           "title": "Inscrição",
-          "template_rendered_code": "!function(){var e=Schools.findOne({createdBy:Meteor.userId()}),t=Entries.findOne({createdBy:Meteor.userId()});e=0==$.isEmptyObject(e),t=0==$.isEmptyObject(t),$('.nao_cadastrado').toggle(!e),$('.cadastrado_nao_inscrito').toggle(e&&!t),$('.cadastrado_inscrito').toggle(e&&t)}();",
+          "query_name": "ultima_inscricao",
+          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "inscrever",
@@ -1353,7 +1365,7 @@
               "query_name": "inscricao_vazia",
               "query_params": [],
               "submit_route": "home_private",
-              "class": "cadastrado_nao_inscrito"
+              "class": "cadastrado_nao_inscrito hide"
             },
             {
               "name": "visualizar",
@@ -1362,7 +1374,7 @@
               "mode": "read_only",
               "query_name": "ultima_inscricao",
               "query_params": [],
-              "class": "cadastrado_inscrito"
+              "class": "cadastrado_inscrito hide"
             }
           ]
         },
@@ -1421,8 +1433,8 @@
         },
         {
           "name": "sair",
-          "custom_data_code": "Meteor.logout(function(err) {Session.set('ses', false)});",
-          "template_rendered_code": "Meteor.logout(function(err) {Session.set('ses', false)});"
+          "custom_data_code": "Meteor.logout();",
+          "template_rendered_code": "Meteor.logout();"
         }
       ],
       "components": [
