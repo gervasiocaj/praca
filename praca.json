@@ -1051,7 +1051,7 @@
       "pages": [
         {
           "name": "home_public",
-          "template_rendered_code": "$('.sistema').hide();$('.inicio').show();$('html,body').scrollTop(0);",
+          "template_rendered_code": "$('.sistema').hide();$('.inicio').show();$('html,body').scrollTop(-10);$('.navbar-brand').remove();",
           "container_class": "bg",
           "components": [
             {
