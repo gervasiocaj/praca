@@ -1068,7 +1068,7 @@
                 {
                   "name": "sobre1",
                   "type": "div",
-                  "class": "col-md-6",
+                  "class": "col-md-5",
                   "components": [
                     {
                       "name": "sobre1_col",
@@ -1080,7 +1080,7 @@
                 {
                   "name": "sobre2",
                   "type": "div",
-                  "class": "col-md-6",
+                  "class": "col-md-5 col-md-offset-2",
                   "components": [
                     {
                       "name": "sobre2_cols",
@@ -1099,7 +1099,7 @@
                 {
                   "name": "sobre3",
                   "type": "div",
-                  "class": "col-md-6",
+                  "class": "col-md-5",
                   "components": [
                     {
                       "name": "sobre3_col",
@@ -1111,7 +1111,7 @@
                 {
                   "name": "sobre4",
                   "type": "div",
-                  "class": "col-md-6",
+                  "class": "col-md-5 col-md-offset-2",
                   "components": [
                     {
                       "name": "sobre4_cols",
@@ -1237,7 +1237,7 @@
             },
             {
               "title": "Contato",
-              "url": "#contato"
+              "url": "#home-public-section-contato-contact"
             }
           ]
         },
