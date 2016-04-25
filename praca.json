@@ -663,15 +663,15 @@
                 "input_items": [
                   {
                     "value": "primeiro ",
-                    "title": "1o ano médio"
+                    "title": "1º ano do Ensino Médio"
                   },
                   {
                     "value": "segundo",
-                    "title": "2o ano médio"
+                    "title": "2º ano do Ensino Médio"
                   },
                   {
                     "value": "terceiro",
-                    "title": "3o ano médio"
+                    "title": "3º ano do Ensino Médio"
                   }
                 ]
               },
