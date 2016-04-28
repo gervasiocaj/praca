@@ -70,7 +70,7 @@
           {
             "name": "my_school"
           }
-        ]  
+        ]
       },
       {
         "name": "inscricao_disponivel",
@@ -1265,23 +1265,31 @@
           "name": "home_private",
           "title": "Olá, {{userFullName}}!",
           "query_name": "ultima_inscricao",
-          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
+          "template_rendered_code": "var cadastro=Schools.findOne({createdBy:Meteor.userId()}),inscricao=Entries.findOne({createdBy:Meteor.userId()}),cadastrado=0==$.isEmptyObject(cadastro),inscrito=0==$.isEmptyObject(inscricao),turmas_vazias=cadastrado&&0==cadastro.classes.length;turmas_vazias&&$('.turmas_vazias').removeClass('hide'),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "jumbo_cadastro",
-              "title": "Cadastro",
-              "type": "jumbotron",
-              "class": "col-md-6 center",
-              "button_route": "cadastros",
-              "button_title": "Ir para a página"
+              "type": "div",
+              "class": "jumbotron col-md-6 center",
+              "components": [
+                {
+                  "name": "botao_1",
+                  "type": "custom_component",
+                  "html": "<h1>Cadastro</h1><a href=\"cadastros\" class=\"btn btn-primary btn-lg\">Ir para a página</a><a href=\"cadastros/editar\" class=\"btn btn-primary btn-lg cadastrado_nao_inscrito cadastrado_inscrito hide\">Editar</a>"
+                }
+              ]
             },
             {
               "name": "jumbo_inscricao",
-              "title": "Inscrição",
-              "type": "jumbotron",
-              "class": "col-md-6 center",
-              "button_route": "inscricoes",
-              "button_title": "Ir para a página"
+              "type": "div",
+              "class": "jumbotron col-md-6 center",
+              "components": [
+                {
+                  "name": "botao_2",
+                  "type": "custom_component",
+                  "html": "<h1>Inscrição</h1><a href=\"inscricoes\" class=\"btn btn-primary btn-lg\">Ir para a página</a>"
+                }
+              ]
             },
             {
               "name": "cadastro_nao_finalizado",
@@ -1289,6 +1297,13 @@
               "query_name": "ultima_inscricao",
               "class": "alert alert-danger nao_cadastrado hide",
               "text": "<strong>Cuidado!</strong> Seu cadastro não foi concluído."
+            },
+            {
+              "name": "cadastro_nao_finalizado",
+              "type": "div",
+              "query_name": "ultima_inscricao",
+              "class": "alert alert-danger turmas_vazias hide",
+              "text": "<strong>Cuidado!</strong> Você não cadastrou nenhuma turma, edite seu cadastro."
             },
             {
               "name": "inscricao_nao_finalizada",
@@ -1318,6 +1333,7 @@
               "title": "Criar chamada",
               "type": "form",
               "mode": "insert",
+              "submit_button_title": "Salvar",
               "query_name": "chamada_vazia",
               "query_params": [],
               "submit_route": "home_private"
@@ -1328,13 +1344,14 @@
           "name": "cadastros",
           "title": "Cadastro",
           "query_name": "ultima_inscricao",
-          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
+          "template_rendered_code": "var cadastro=Schools.findOne({createdBy:Meteor.userId()}),inscricao=Entries.findOne({createdBy:Meteor.userId()}),cadastrado=0==$.isEmptyObject(cadastro),inscrito=0==$.isEmptyObject(inscricao),turmas_vazias=cadastrado&&0==cadastro.classes.length;turmas_vazias&&$('.turmas_vazias').removeClass('hide'),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "cadastrar",
               "title": "Cadastrar escola",
               "type": "form",
               "mode": "insert",
+              "submit_button_title": "Salvar",
               "query_name": "escola_vazia",
               "query_params": [],
               "submit_route": "home_private",
@@ -1349,13 +1366,32 @@
               "query_params": [],
               "class": "cadastrado_nao_inscrito cadastrado_inscrito hide"
             }
+          ],
+          "pages": [
+            {
+              "name": "editar",
+              "components": [
+                {
+                  "name": "editar_cadastro",
+                  "title": "Editar cadastro",
+                  "type": "form",
+                  "mode": "edit",
+                  "query_name": "my_school",
+                  "query_params": [],
+                  "submit_button_title": "Salvar",
+                  "cancel_button_title": "Cancelar",
+                  "submit_route": "home_private",
+                  "cancel_route": "home_private"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "inscricoes",
           "title": "Inscrição",
           "query_name": "ultima_inscricao",
-          "template_rendered_code": "var cadastrado=Schools.findOne({createdBy:Meteor.userId()}),inscrito=Entries.findOne({createdBy:Meteor.userId()});cadastrado=0==$.isEmptyObject(cadastrado),inscrito=0==$.isEmptyObject(inscrito),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
+          "template_rendered_code": "var cadastro=Schools.findOne({createdBy:Meteor.userId()}),inscricao=Entries.findOne({createdBy:Meteor.userId()}),cadastrado=0==$.isEmptyObject(cadastro),inscrito=0==$.isEmptyObject(inscricao),turmas_vazias=cadastrado&&0==cadastro.classes.length;turmas_vazias&&$('.turmas_vazias').removeClass('hide'),!cadastrado&&$('.nao_cadastrado').removeClass('hide'),cadastrado&&!inscrito&&$('.cadastrado_nao_inscrito').removeClass('hide'),cadastrado&&inscrito&&$('.cadastrado_inscrito').removeClass('hide');",
           "components": [
             {
               "name": "inscrever",
