@@ -1400,8 +1400,14 @@
               "mode": "insert",
               "query_name": "inscricao_vazia",
               "query_params": [],
-              "submit_route": "home_private",
               "class": "cadastrado_nao_inscrito hide"
+              "submit_route": "home_private"
+            },
+            {
+              "name": "inscricoes_suspensas",
+              "type": "div",
+              "text": "<strong>Infelizmente, o período de inscrições acabou.</strong> Fique de olho no próximo edital e nas notícias na nossa página.",
+              "class": "alert alert-danger nao_cadastrado_temp cadastrado_nao_inscrito_temp hide"
             },
             {
               "name": "visualizar",
