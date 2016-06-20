@@ -1061,66 +1061,9 @@
               "dest_position": "before"
             },
             {
-              "name": "section_sobre",
-              "type": "section",
-              "class": "sobre",
-              "components": [
-                {
-                  "name": "sobre1",
-                  "type": "div",
-                  "class": "col-md-5",
-                  "components": [
-                    {
-                      "name": "sobre1_col",
-                      "type": "markdown",
-                      "source_file": "texts/sobre1.md"
-                    }
-                  ]
-                },
-                {
-                  "name": "sobre2",
-                  "type": "div",
-                  "class": "col-md-5 col-md-offset-2",
-                  "components": [
-                    {
-                      "name": "sobre2_cols",
-                      "type": "markdown",
-                      "source_file": "texts/sobre2.md"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "section_sobre2",
-              "type": "section",
-              "class": "sobre",
-              "components": [
-                {
-                  "name": "sobre3",
-                  "type": "div",
-                  "class": "col-md-5",
-                  "components": [
-                    {
-                      "name": "sobre3_col",
-                      "type": "markdown",
-                      "source_file": "texts/sobre3.md"
-                    }
-                  ]
-                },
-                {
-                  "name": "sobre4",
-                  "type": "div",
-                  "class": "col-md-5 col-md-offset-2",
-                  "components": [
-                    {
-                      "name": "sobre4_cols",
-                      "type": "markdown",
-                      "source_file": "texts/sobre4.md"
-                    }
-                  ]
-                }
-              ]
+              "name": "zuper",
+              "type": "custom_component",
+              "custom_template": "files/zuper.html"
             },
             {
               "name": "section_contato",
@@ -1400,7 +1343,7 @@
               "mode": "insert",
               "query_name": "inscricao_vazia",
               "query_params": [],
-              "class": "cadastrado_nao_inscrito hide"
+              "class": "cadastrado_nao_inscrito hide",
               "submit_route": "home_private"
             },
             {
