@@ -1,4 +1,0 @@
-<h2 id="sobre">A Praça</h2>
-<p>
-    A Praça das Profissões, unidade suplementar a ser vinculada à reitoria da UFCG, é o resultado de uma iniciativa de financiamento junto à Finep de um projeto de extensão e interação com ensino médio. Visa oferecer uma infraestrutura destinada à divulgação dos cursos de graduação, produtos, tecnologias e serviços aqui desenvolvidos e à demonstração dos princípios básicos das ciências e das demais áreas aos estudantes desse nível escolar. Objetiva também atualizar permanentemente os professores das escolas de ensino médio, tornando-os multiplicadores das ações da Praça das Profissões e difundindo tais informações em suas unidades escolares.
-</p>
