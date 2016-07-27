@@ -2,4 +2,27 @@
 /* Home: Style */
 /*****************************************************************************/
 .home {
+
+  vertical-align: top;
+
+  header {
+    background: url(images/background.png) no-repeat center center;
+	background-size: cover;
+	display: table;
+	height: calc(100vh - 50px);
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	overflow-x: hidden;
+
+	img {
+		width: 50%;
+		position: absolute;
+		top:0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+  }
 }
