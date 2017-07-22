@@ -23,6 +23,19 @@
   height: 270px;
 }
 
+.gandalf {
+    background: #f0f0f0;
+}
+
+/*.navbar-gandalf {
+  background-color: #a9a9a9;
+}
+(function(){var $nav=$('#navbar');function navbarAnimation(){if ($(window).scrollTop() > 0) {$nav.removeClass('navbar-gandalf');return;}$nav.addClass('navbar-gandalf');$('.navbar-nav > li > a').blur();}navbarAnimation();$(window).scroll(function() {navbarAnimation()})})();
+*/
+.sobre {
+    padding-bottom: 40px;
+}
+
 section {
   padding-top: 5%;
 }

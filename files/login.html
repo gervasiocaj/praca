@@ -1,0 +1,19 @@
+<template name="TEMPLATE_NAME">
+	<div class="container">
+		<form id="login_form" class="account-form" role="form">
+			<h2>Entre</h2>
+
+			{{#if errorMessage}}
+				<div class="alert alert-warning">{{errorMessage}}</div>
+			{{/if}}
+
+			<div id="login-with-password" style="padding-top: 10px;">
+				<input id="login_email" type="text" class="form-control" placeholder="Endereço de email" required autofocus>
+				<input id="login_password" type="password" class="form-control" placeholder="Senha" required>
+
+				<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="Aguarde...">Entrar</button>
+        <a class="btn btn-lg btn-link" href="registrar">Ainda não possui conta? Clique aqui</a>
+			</div>
+		</form>
+	</div>
+</template>
